@@ -2,6 +2,12 @@ import React from 'react';
 import './App.css';
 import $ from 'jquery';
 import PromptComponent from './PromptComponent';
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.REACT_APP_OPENAI_API_KEY, dangerouslyAllowBrowser: true
+});
+
 
 class App extends React.Component {
   constructor(props) {
@@ -47,35 +53,42 @@ class App extends React.Component {
 
   handleValueFromPrompt = (value) => {
     return new Promise(async (resolve, reject) => {
-      const artists = value.split(',');
-      const artistsId = [];
+    /*   const artists = value.split(',');
+      const artistsId = []; */
+
+      const completion = await openai.chat.completions.create({
+        messages: [{ role: "user", content: `Get me the spotify artist id for these artists: ${value}. Respond in this format: Id1, Id2, Id3` }],
+        model: "gpt-3.5-turbo",
+      });
+    
+      console.log(completion.choices[0]);
   
-      for (const artist of artists) {
+/*       for (const artist of artists) {
         try {
           const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(artist)}&type=artist`, {
             method: 'GET',
             headers: {
               'Authorization': `Bearer ${this.token}`,
             },
-          });
+          }); */
   
-          const data = await response.json();
-  
-          if (data.artists && data.artists.items.length > 0) {
+/*           const data = await response.json();
+   */
+          /* if (data.artists && data.artists.items.length > 0) {
             artistsId.push(data.artists.items[0].id);
             console.log(artistsId);
           } else {
             console.log(`Nenhum artista encontrado para "${artist}"`);
-          }
-        } catch (error) {
+          } */
+/*         } catch (error) {
           console.error('Erro ao pesquisar o artista:', error);
           reject(error);
           return;
-        }
-      }
+        } */
+      
   
-      resolve(artistsId);
-      this.getRecommendation(artistsId)
+      /* resolve(artistsId);
+      this.getRecommendation(artistsId) */
     });
   };
   

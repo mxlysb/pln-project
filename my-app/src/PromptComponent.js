@@ -24,7 +24,7 @@ class PromptComponent extends Component {
 
   handlePromptSubmit = () => {
     const inputValue = this.state.inputValue;
-    this.props.onValueSubmit(inputValue); // Chama a função de retorno de chamada com o valor.
+    this.props.onValueSubmit(inputValue);
     this.handlePromptClose();
   };
   
