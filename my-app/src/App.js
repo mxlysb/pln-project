@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import $ from 'jquery';
 import InputComponent from './InputComponent';
+import NavBar from './NavBar';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
@@ -170,6 +171,7 @@ class App extends React.Component {
         titles.push(match[1]);
       }
       const userId = await this.getUserId()
+      console.log(userId)
       const idPlaylist = await this.createPlaylist(userId)
       const uris = await this.getUrisSpotify(titles)
       await this.addItensPlaylist(idPlaylist, uris)
@@ -182,7 +184,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <button><a href="http://localhost:8888">Logar com Spotify</a></button>
+        <NavBar /> {/* Inclua o componente NavBar aqui */}
+        <button className="custom-button"><a href="http://localhost:8888" className="link-button">Logar com Spotify</a></button>
         <InputComponent onValueSubmit={this.handleValueFromPrompt } />
       </div>
     );

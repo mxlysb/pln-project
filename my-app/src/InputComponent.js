@@ -21,12 +21,12 @@ class InputComponent extends Component {
   render() {
     return (
       <div>
-        <input
+        <input className='input'
           type="text"
           value={this.state.inputValue}
           onChange={this.handleInputChange}
         />
-        <button onClick={this.handleInputSubmit}>Enviar</button>
+        <button className='send-button' onClick={this.handleInputSubmit}>Enviar</button>
       </div>
     );
   }

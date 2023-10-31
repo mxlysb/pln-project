@@ -1,6 +1,79 @@
 .App {
   text-align: center;
 }
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #7689de;
+  color: #fff;
+  padding: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 70px; /* Largura do logotipo */
+  height: auto;
+  margin-right: 5px;
+}
+
+span {
+  text-align: center; /* Centralizar o texto "RecPlay" */
+  font-size: 24px; /* Tamanho das letras aumentado (ajuste conforme necessário) */
+}
+
+
+
+.custom-button {
+  background-color: #33FFC1; /* Cor de fundo do botão */
+  color: #fff; /* Cor do texto do botão */
+  padding: 10px 20px; /* Espaçamento interno (ajuste conforme necessário) */
+  border: none; /* Remova a borda do botão */
+  border-radius: 4px; /* Borda arredondada */
+  text-decoration: none; /* Remova o sublinhado do link dentro do botão */
+  font-size: 16px; /* Tamanho da fonte */
+  cursor: pointer; /* Transforme o cursor em uma mãozinha quando passar por cima */
+  display: inline-block; /* Faça o botão se comportar como um bloco inline */
+  margin: 10px; /* Margem ao redor do botão (ajuste conforme necessário) */
+}
+
+.link-button {
+  text-decoration: none; /* Remove o sublinhado do link */
+  color: inherit; /* Mantém a cor do texto herdada do botão */
+}
+
+/* Estilização para o input */
+.input {
+  width: 20%;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+/* Estilização para o send button */
+.send-button {
+  background-color: #7689de;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Estilização para quando o botão é hover (passagem do mouse) */
+.send-button:hover {
+  background-color: #7733FF;
+}
+
+
 
 .App-logo {
   height: 40vmin;
