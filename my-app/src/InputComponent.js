@@ -1,0 +1,35 @@
+import React, { Component } from 'react';
+
+class InputComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      inputValue: '',
+    };
+  }
+
+  handleInputChange = (e) => {
+    this.setState({ inputValue: e.target.value });
+  };
+
+  handleInputSubmit = () => {
+    const inputValue = this.state.inputValue;
+    this.props.onValueSubmit(inputValue);
+  };
+  
+  render() {
+    return (
+      <div>
+        <input
+          type="text"
+          value={this.state.inputValue}
+          onChange={this.handleInputChange}
+        />
+        <button onClick={this.handleInputSubmit}>Enviar</button>
+      </div>
+    );
+  }
+}
+
+export default InputComponent;

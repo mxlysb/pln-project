@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
 import $ from 'jquery';
-import PromptComponent from './PromptComponent';
+import InputComponent from './InputComponent';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
   apiKey: process.env.REACT_APP_OPENAI_API_KEY, dangerouslyAllowBrowser: true
 });
-
 
 class App extends React.Component {
   constructor(props) {
@@ -29,10 +28,9 @@ class App extends React.Component {
     return hashParams;
   }
 
-
-  getRecommendation = (artistsId) =>{
-    console.log(artistsId)
-    const artists = artistsId.join(",")
+  getRecommendation = (songTitle) =>{
+    console.log(songTitle)
+    const artists = songTitle.join(",")
     $.ajax({
       method: "GET",
       dataType: "json",
@@ -51,44 +49,132 @@ class App extends React.Component {
     });
   }
 
+  getUserId = async () => {
+    try {
+      const response = await $.ajax({
+        method: "GET",
+        dataType: "json",
+        url: `https://api.spotify.com/v1/me`,
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        }
+      });
+  
+      return response.id;
+    } catch (error) {
+      console.error("Error when obtaining the user ID:", error);
+      throw error;
+    }
+  }
+
+  createPlaylist = async (userId) => {
+    try {
+      const response = await $.ajax({
+        method: "POST",
+        dataType: "json",
+        url: `https://api.spotify.com/v1/users/${userId}/playlists`,
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        },
+        data: JSON.stringify({
+          name: "My Recommended Playlist",
+          public: true,
+          description: "Playlist created based on your favorite artists.",
+        }),
+      });
+  
+      return response.id;
+    } catch (error) {
+      console.error("Error when creating the playlist:", error);
+    }
+  }
+
+   addItensPlaylist = async (idPlaylist, urisTracks) => {
+    try {
+      const response = await $.ajax({
+        method: "POST",
+        dataType: "json",
+        url: `https://api.spotify.com/v1/playlists/${idPlaylist}/tracks`,
+        headers: {
+          Authorization: `Bearer ${this.token}`
+        },
+        data: JSON.stringify({
+          uris: urisTracks,
+        }),
+      });
+    } catch (error) {
+      console.error("Error when adding tracks to the playlist:", error);
+    }
+  }
+
+  searchTrackByTitle = async (title) => {
+    const apiUrl = `https://api.spotify.com/v1/search?q=${encodeURIComponent(title)}&type=track`;
+  
+    const response = await fetch(apiUrl, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${this.token}`
+      }
+    });
+  
+    const data = await response.json();
+    return data;
+  };
+
+  getUrisSpotify = async (titles) => {
+    const uris = [];
+  
+    for (const title of titles) {
+      const searchResults = await this.searchTrackByTitle(title);
+      if (searchResults && searchResults.tracks.items.length > 0) {
+        const trackUri = searchResults.tracks.items[0].uri;
+        uris.push(trackUri);
+      }
+    }
+  
+    return uris;
+  }
+  
+
   handleValueFromPrompt = (value) => {
     return new Promise(async (resolve, reject) => {
-    /*   const artists = value.split(',');
-      const artistsId = []; */
-
       const completion = await openai.chat.completions.create({
-        messages: [{ role: "user", content: `Get me the spotify artist id for these artists: ${value}. Respond in this format: Id1, Id2, Id3` }],
+        messages: [
+          { 
+            role: "system", content: "You are a music expert specializing in recommendations."
+          },
+          {
+            role: "user", content: `Recommend 30 unique songs that are most similar to the following ${value} and other similar artists. 
+                                    Include 'title', 'artist', and 'album' in your response. An example response is: "
+                                              [
+                                                {
+                                                    "title": "Hey Jude",
+                                                    "artist": "The Beatles",
+                                                    "album": "The Beatles (White Album)",
+                                                }
+                                              ]".` 
+            }
+        ],
         model: "gpt-3.5-turbo",
       });
     
-      console.log(completion.choices[0]);
-  
-/*       for (const artist of artists) {
-        try {
-          const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(artist)}&type=artist`, {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${this.token}`,
-            },
-          }); */
-  
-/*           const data = await response.json();
-   */
-          /* if (data.artists && data.artists.items.length > 0) {
-            artistsId.push(data.artists.items[0].id);
-            console.log(artistsId);
-          } else {
-            console.log(`Nenhum artista encontrado para "${artist}"`);
-          } */
-/*         } catch (error) {
-          console.error('Erro ao pesquisar o artista:', error);
-          reject(error);
-          return;
-        } */
+      console.log("Criando playlist...")
+
+      const responseContent = completion.choices[0].message.content;
+      const titles = [];
       
-  
-      /* resolve(artistsId);
-      this.getRecommendation(artistsId) */
+      const titleRegex = /"title":\s*"([^"]+)"/g;
+      let match;
+
+      while ((match = titleRegex.exec(responseContent)) !== null) {
+        titles.push(match[1]);
+      }
+      const userId = await this.getUserId()
+      const idPlaylist = await this.createPlaylist(userId)
+      const uris = await this.getUrisSpotify(titles)
+      await this.addItensPlaylist(idPlaylist, uris)
+
+      console.log("Playlist criada!")
     });
   };
   
@@ -97,7 +183,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <button><a href="http://localhost:8888">Logar com Spotify</a></button>
-        <PromptComponent onValueSubmit={this.handleValueFromPrompt} />
+        <InputComponent onValueSubmit={this.handleValueFromPrompt } />
       </div>
     );
   }
