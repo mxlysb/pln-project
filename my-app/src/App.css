@@ -16,29 +16,29 @@
 }
 
 .logo img {
-  width: 70px; /* Largura do logotipo */
+  width: 70px; 
   height: auto;
   margin-right: 5px;
 }
 
 span {
-  text-align: center; /* Centralizar o texto "RecPlay" */
-  font-size: 24px; /* Tamanho das letras aumentado (ajuste conforme necessário) */
+  text-align: center; 
+  font-size: 24px; 
 }
 
 
 
 .custom-button {
-  background-color: #33FFC1; /* Cor de fundo do botão */
-  color: #fff; /* Cor do texto do botão */
-  padding: 10px 20px; /* Espaçamento interno (ajuste conforme necessário) */
-  border: none; /* Remova a borda do botão */
-  border-radius: 4px; /* Borda arredondada */
-  text-decoration: none; /* Remova o sublinhado do link dentro do botão */
-  font-size: 16px; /* Tamanho da fonte */
-  cursor: pointer; /* Transforme o cursor em uma mãozinha quando passar por cima */
-  display: inline-block; /* Faça o botão se comportar como um bloco inline */
-  margin: 10px; /* Margem ao redor do botão (ajuste conforme necessário) */
+  background-color: #33FFC1; 
+  color: #fff; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 10px; 
+  text-decoration: none; 
+  font-size: 16px; 
+  cursor: pointer; 
+  display: inline-block; 
+  margin: 10px; 
 }
 .custom-button:hover {
   background-color: #01DD87;
@@ -46,11 +46,10 @@ span {
 }
 
 .link-button {
-  text-decoration: none; /* Remove o sublinhado do link */
-  color: inherit; /* Mantém a cor do texto herdada do botão */
+  text-decoration: none; 
+  color: inherit; 
 }
 
-/* Estilização para o input */
 .input {
   width: 20%;
   padding: 10px;
@@ -61,7 +60,6 @@ span {
   outline: none;
 }
 
-/* Estilização para o send button */
 .send-button {
   background-color: #7689de;
   color: #fff;
@@ -72,7 +70,6 @@ span {
   cursor: pointer;
 }
 
-/* Estilização para quando o botão é hover (passagem do mouse) */
 .send-button:hover {
   background-color: #7733FF;
 }

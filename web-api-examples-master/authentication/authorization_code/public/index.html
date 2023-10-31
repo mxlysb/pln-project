@@ -16,10 +16,10 @@
     </style>
   </head>
 
-  <body>
+  <body style="display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; text-align: center;">
     <div class="container">
       <div id="login">
-        <h1>This is an example of the Authorization Code flow</h1>
+        <h1>Faça o login na sua conta Spotify!</h1>
         <a href="/login" class="btn btn-primary">Log in with Spotify</a>
       </div>
       <div id="loggedin">
@@ -96,7 +96,6 @@
           alert('There was an error during the authentication');
         } else {
           if (access_token) {
-            // render oauth info
             oauthPlaceholder.innerHTML = oauthTemplate({
               access_token: access_token,
               refresh_token: refresh_token
@@ -115,7 +114,6 @@
                 }
             });
           } else {
-              // render initial screen
               $('#login').show();
               $('#loggedin').hide();
           }

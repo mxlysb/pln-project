@@ -184,7 +184,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <NavBar /> {/* Inclua o componente NavBar aqui */}
+        <NavBar /> {}
         <button className="custom-button"><a href="http://localhost:8888" className="link-button">Logar com Spotify</a></button>
         <InputComponent onValueSubmit={this.handleValueFromPrompt } />
       </div>
