@@ -40,6 +40,10 @@ span {
   display: inline-block; /* Faça o botão se comportar como um bloco inline */
   margin: 10px; /* Margem ao redor do botão (ajuste conforme necessário) */
 }
+.custom-button:hover {
+  background-color: #01DD87;
+
+}
 
 .link-button {
   text-decoration: none; /* Remove o sublinhado do link */
