@@ -23,6 +23,7 @@ class InputComponent extends Component {
       <div>
         <input className='input'
           type="text"
+          placeholder='Digite os artistas aqui...'
           value={this.state.inputValue}
           onChange={this.handleInputChange}
         />
