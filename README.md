@@ -1,5 +1,10 @@
-# Recplay
+# RecPlay 🎧
 
+## Sobre o projeto
+
+A aplicação, através da API do OpenAI e Spotify, cria uma playlist baseada nos artistas que você escolhe. A playlist depois de criada, é adicionada automaticamente na sua conta do Spotify.
+
+### Pré-requisitos
 No arquivo ```authentication``` inserir as informações necessárias:
 
 ```
@@ -12,8 +17,7 @@ No arquivo ```.env``` inserir seu Id do openAI:
 ```
 REACT_APP_OPENAI_API_KEY=OPENAI_API_KEY
 ```
-
-Para rodar:
+### Instalação e execução:
 
 ```
 cd my-react-app
@@ -23,4 +27,3 @@ npm start
 cd authentication
 pip install Flask requests flask-cors
 python authentication.py
-`
