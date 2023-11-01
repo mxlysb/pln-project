@@ -7,9 +7,9 @@ from urllib.parse import urlencode
 
 app = Flask(__name__)
 
-client_id = '53a34fa4f504485bba992345c94f4d9c'  # Seu client_id
-client_secret = '2fb3b48e963d456fb3e1be74e225a793'  # Seu secret
-redirect_uri = 'http://127.0.0.1:8888/callback'  # Sua URI de redirecionamento
+client_id = 'seu_client_id'
+client_secret = 'seu_secret'
+redirect_uri = 'sua_URI_de_redirecionamento'
 
 state_key = 'spotify_auth_state'
 
