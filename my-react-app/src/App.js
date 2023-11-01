@@ -125,7 +125,8 @@ class App extends React.Component {
             role: "system", content: "You are a music expert specializing in recommendations."
           },
           {
-            role: "user", content: `Recommend 30 unique songs that are most similar to the following ${value} and other similar artists. 
+            role: "user", content: `Recommend 30 unique songs that are most similar to the following ${value} and other similar artists, 
+                                    being 10 songs by the artists above and other 20 songs from similar artists. 
                                     Include 'title', 'artist', and 'album' in your response. An example response is: "
                                               [
                                                 {
